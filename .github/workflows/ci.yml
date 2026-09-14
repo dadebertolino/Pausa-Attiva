@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deny-list tracker (policy zero-tracker verificabile)
+        run: ./tool/check_denylist.sh
+
+      - name: Claim vietati (spec §1)
+        run: ./tool/check_claims.sh
+
+      # Pin allineato alla versione di sviluppo (spec §9). Aggiornare insieme.
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: "3.41.5"
+          cache: true
+
+      - run: flutter pub get
+      - run: dart run build_runner build --delete-conflicting-outputs
+      - run: flutter analyze
+      - run: flutter test

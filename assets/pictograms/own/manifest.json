@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "movements": [
+    {
+      "id": "marcia_sul_posto",
+      "name": "Marcia sul posto",
+      "tags": ["attivazione", "in piedi"],
+      "frames": [
+        { "file": "marcia_sul_posto_1.png", "ms": 500 },
+        { "file": "marcia_sul_posto_2.png", "ms": 500 }
+      ],
+      "loop": "repeat"
+    },
+    {
+      "id": "saltelli_a_stella",
+      "name": "Saltelli a stella",
+      "tags": ["attivazione", "spazio"],
+      "frames": [
+        { "file": "saltelli_a_stella_1.png", "ms": 500 },
+        { "file": "saltelli_a_stella_2.png", "ms": 500 }
+      ],
+      "loop": "repeat"
+    },
+    {
+      "id": "tocca_ginocchio_opposto",
+      "name": "Tocca il ginocchio opposto",
+      "tags": ["attivazione", "in piedi"],
+      "frames": [
+        { "file": "tocca_ginocchio_opposto_1.png", "ms": 1000 },
+        { "file": "tocca_ginocchio_opposto_2.png", "ms": 1000 }
+      ],
+      "loop": "repeat"
+    },
+    {
+      "id": "alzati_e_siediti",
+      "name": "Alzati e siediti",
+      "tags": ["attivazione", "banco"],
+      "frames": [
+        { "file": "alzati_e_siediti_1.png", "ms": 3000 },
+        { "file": "alzati_e_siediti_2.png", "ms": 3000 }
+      ],
+      "loop": "repeat"
+    },
+    {
+      "id": "spingi_i_palmi",
+      "name": "Spingi i palmi",
+      "tags": ["scarico", "banco"],
+      "frames": [
+        { "file": "spingi_i_palmi_1.png", "ms": 1000 },
+        { "file": "spingi_i_palmi_2.png", "ms": 4000 }
+      ],
+      "loop": "repeat"
+    },
+    {
+      "id": "rotazione_spalle",
+      "name": "Rotazione delle spalle",
+      "tags": ["scarico", "banco"],
+      "frames": [
+        { "file": "rotazione_spalle_1.png", "ms": 500 },
+        { "file": "rotazione_spalle_2.png", "ms": 500 },
+        { "file": "rotazione_spalle_3.png", "ms": 500 },
+        { "file": "rotazione_spalle_4.png", "ms": 500 }
+      ],
+      "loop": "repeat"
+    },
+    {
+      "id": "mani_verso_i_piedi",
+      "name": "Mani verso i piedi",
+      "tags": ["scarico", "in piedi"],
+      "frames": [
+        { "file": "mani_verso_i_piedi_1.png", "ms": 3000 },
+        { "file": "mani_verso_i_piedi_2.png", "ms": 3000 }
+      ],
+      "loop": "repeat"
+    },
+    {
+      "id": "allungati_come_albero",
+      "name": "Allungati come un albero",
+      "tags": ["scarico", "in piedi"],
+      "frames": [
+        { "file": "allungati_come_albero_1.png", "ms": 3000 },
+        { "file": "allungati_come_albero_2.png", "ms": 3000 }
+      ],
+      "loop": "repeat"
+    },
+    {
+      "id": "respiro_quadrato",
+      "name": "Respiro quadrato",
+      "tags": ["rientro calmo", "banco"],
+      "frames": [
+        { "file": "respiro_quadrato_1.png", "ms": 4000 },
+        { "file": "respiro_quadrato_1.png", "ms": 4000 },
+        { "file": "respiro_quadrato_2.png", "ms": 4000 },
+        { "file": "respiro_quadrato_2.png", "ms": 4000 }
+      ],
+      "loop": "repeat"
+    },
+    {
+      "id": "pollice_tocca_le_dita",
+      "name": "Pollice che tocca le dita",
+      "tags": ["rientro calmo", "banco"],
+      "frames": [
+        { "file": "pollice_tocca_le_dita_1.png", "ms": 750 },
+        { "file": "pollice_tocca_le_dita_2.png", "ms": 750 },
+        { "file": "pollice_tocca_le_dita_3.png", "ms": 750 },
+        { "file": "pollice_tocca_le_dita_4.png", "ms": 750 }
+      ],
+      "loop": "pingpong"
+    },
+    {
+      "id": "testa_sul_banco",
+      "name": "Testa sul banco",
+      "tags": ["rientro calmo", "banco"],
+      "frames": [
+        { "file": "testa_sul_banco_1.png", "ms": 1000 }
+      ],
+      "loop": "repeat"
+    },
+    {
+      "id": "traccia_forma_col_dito",
+      "name": "Traccia una forma col dito",
+      "tags": ["rientro calmo", "banco"],
+      "frames": [
+        { "file": "traccia_forma_col_dito_1.png", "ms": 1000 },
+        { "file": "traccia_forma_col_dito_2.png", "ms": 1000 },
+        { "file": "traccia_forma_col_dito_3.png", "ms": 1000 },
+        { "file": "traccia_forma_col_dito_4.png", "ms": 1000 }
+      ],
+      "loop": "repeat"
+    }
+  ]
+}
