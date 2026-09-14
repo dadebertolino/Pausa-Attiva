@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/constants.dart';
+import '../../core/print_actions.dart';
 import '../../core/providers.dart';
 import '../../core/widgets/avatar_view.dart';
 import '../../data/repositories/settings_repo.dart';
@@ -57,8 +59,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             onChanged: (v) => unawaited(_repo.put(SettingsKeys.voice, '$v')),
           ),
           SwitchListTile(
-            title: const Text('Segnale di preavviso'),
-            subtitle: const Text('Suono e vibrazione poco prima del cambio'),
+            title: const Text('Suoni'),
+            subtitle: const Text('Un segnale poco prima del cambio e uno a ogni cambio di fase'),
             value: settings.sounds,
             onChanged: (v) => unawaited(_repo.put(SettingsKeys.sounds, '$v')),
           ),
@@ -92,6 +94,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               title: const Text('Rimuovi PIN'),
               onTap: () => unawaited(_repo.clearPin()),
             ),
+          const _Header('Stampa'),
+          ListTile(
+            leading: const Icon(Icons.print_outlined),
+            title: const Text('Schede di tutte le pause'),
+            subtitle: const Text('Una pagina per pausa, da stampare e plastificare'),
+            onTap: () => printBreakCards(
+                context, ref, ref.read(breaksProvider).valueOrNull ?? const []),
+          ),
           const _Header('Informazioni'),
           ListTile(
             leading: const Icon(Icons.privacy_tip_outlined),
@@ -114,6 +124,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               '$arasaacAttribution.\n\n'
                   'Illustrazioni delle pause attive: Davide Bertolino.\n\n'
                   'Codice pubblico con licenza PolyForm Noncommercial 1.0.0.',
+              link: Uri.parse('https://arasaac.org'),
             ),
           ),
           const AboutListTile(
@@ -128,12 +139,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
   }
 
-  void _info(String title, String body) => unawaited(showDialog<void>(
+  void _info(String title, String body, {Uri? link}) => unawaited(showDialog<void>(
         context: context,
         builder: (context) => AlertDialog(
           title: Text(title),
           content: SingleChildScrollView(child: Text(body)),
           actions: [
+            if (link != null)
+              TextButton(
+                onPressed: () => unawaited(
+                    launchUrl(link, mode: LaunchMode.externalApplication)),
+                child: Text(link.host),
+              ),
             TextButton(onPressed: () => Navigator.pop(context), child: const Text('Chiudi')),
           ],
         ),

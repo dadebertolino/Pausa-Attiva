@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/labels.dart';
+import '../../core/print_actions.dart';
 import '../../core/providers.dart';
 import '../../core/theme.dart';
 import '../../core/widgets/adult_gate.dart';
@@ -149,6 +150,7 @@ class HomeScreen extends ConsumerWidget {
                     adult: adult,
                     onStart: () => _start(context, ref, t),
                     onEdit: () => _push(context, TaskEditorScreen(initial: t)),
+                    onPrint: () => printTaskSheet(context, ref, t),
                   ),
               ];
             },
@@ -205,12 +207,14 @@ class _TaskCard extends StatelessWidget {
     required this.adult,
     required this.onStart,
     required this.onEdit,
+    required this.onPrint,
   });
 
   final TaskTemplate task;
   final bool adult;
   final VoidCallback onStart;
   final VoidCallback onEdit;
+  final VoidCallback onPrint;
 
   String get _summary {
     final steps = '${task.steps.length} step';
@@ -246,6 +250,12 @@ class _TaskCard extends StatelessWidget {
                   ],
                 ),
               ),
+              if (adult)
+                IconButton(
+                  tooltip: 'Stampa scheda',
+                  icon: const Icon(Icons.print_outlined),
+                  onPressed: onPrint,
+                ),
               if (adult)
                 IconButton(
                   tooltip: 'Modifica',

@@ -15,6 +15,7 @@ import '../../core/widgets/pictogram_view.dart';
 import '../../core/widgets/timer_disc.dart';
 import '../../core/widgets/token_row.dart';
 import '../../data/repositories/settings_repo.dart';
+import '../../data/services/sound_service.dart';
 import '../../data/services/tts_service.dart';
 import '../../domain/break_rotation.dart';
 import '../../domain/enums.dart';
@@ -37,6 +38,7 @@ class _SessionScreenState extends ConsumerState<SessionScreen> {
   late final AppSettings _settings;
   late final List<BreakActivity> _library;
   late final TtsService _tts;
+  late final SoundService _sound;
   late SessionSnapshot _snap;
   Timer? _timer;
 
@@ -45,6 +47,7 @@ class _SessionScreenState extends ConsumerState<SessionScreen> {
     super.initState();
     // Letto qui: in dispose() ref non è più utilizzabile.
     _tts = ref.read(ttsProvider);
+    _sound = ref.read(soundProvider);
     _settings = ref.read(settingsProvider).valueOrNull ?? const AppSettings();
     _library = ref.read(breaksProvider).valueOrNull ?? const [];
     final byId = {for (final b in _library) b.id: b};
@@ -82,11 +85,11 @@ class _SessionScreenState extends ConsumerState<SessionScreen> {
     for (final event in events) {
       switch (event) {
         case WorkStarted(:final step):
-          _say(step.label);
+          _phaseChanged(step.label);
         case StepChanged(:final step):
           _say(step.label);
         case PauseStarted(:final activity):
-          _say(activity.isCircuit
+          _phaseChanged(activity.isCircuit
               ? 'Pausa. ${activity.name}. ${activity.moves.first.label}'
               : 'Pausa. ${activity.name}');
         case MoveStarted(:final move, :final index) when index > 0:
@@ -94,9 +97,9 @@ class _SessionScreenState extends ConsumerState<SessionScreen> {
         case MoveStarted():
           break;
         case WarningStarted():
-          _signal();
+          _warn();
         case SessionFinished():
-          _say('Finito');
+          _phaseChanged('Finito');
       }
     }
   }
@@ -105,9 +108,24 @@ class _SessionScreenState extends ConsumerState<SessionScreen> {
     if (_settings.voice) unawaited(_tts.speak(text));
   }
 
-  void _signal() {
+  /// Ogni cambio di fase è confermato allo stesso modo (spec §6):
+  /// stesso suono, poi la voce, così i due non si sovrappongono.
+  void _phaseChanged(String announcement) {
+    if (!_settings.sounds) {
+      _say(announcement);
+      return;
+    }
+    unawaited(_sound.play(AppSound.cambio));
+    unawaited(HapticFeedback.mediumImpact());
+    unawaited(Future<void>.delayed(const Duration(milliseconds: 900), () {
+      if (mounted) _say(announcement);
+    }));
+  }
+
+  /// Preavviso prima della fine di un blocco o di una pausa.
+  void _warn() {
     if (!_settings.sounds) return;
-    unawaited(SystemSound.play(SystemSoundType.alert));
+    unawaited(_sound.play(AppSound.preavviso));
     unawaited(HapticFeedback.heavyImpact());
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/labels.dart';
+import '../../core/print_actions.dart';
 import '../../core/providers.dart';
 import '../../core/theme.dart';
 import '../../core/widgets/pictogram_view.dart';
@@ -35,6 +36,15 @@ class _BreakLibraryScreenState extends ConsumerState<BreakLibraryScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Libreria pause'),
+          actions: [
+            IconButton(
+              tooltip: 'Stampa le schede di tutte le pause',
+              icon: const Icon(Icons.print_outlined),
+              onPressed: breaks.isEmpty
+                  ? null
+                  : () => printBreakCards(context, ref, breaks),
+            ),
+          ],
           bottom: TabBar(
             tabs: [
               for (final kind in BreakKind.values)

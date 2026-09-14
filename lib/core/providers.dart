@@ -8,6 +8,8 @@ import '../data/repositories/profile_repo.dart';
 import '../data/repositories/settings_repo.dart';
 import '../data/repositories/task_repo.dart';
 import '../data/services/arasaac_api.dart';
+import '../data/services/pdf_export.dart';
+import '../data/services/sound_service.dart';
 import '../data/services/tts_service.dart';
 import '../domain/models.dart';
 import '../domain/movement_manifest.dart';
@@ -41,6 +43,17 @@ final arasaacApiProvider = Provider<ArasaacApi>((ref) =>
     ArasaacApi(ref.watch(databaseProvider), ref.watch(documentsDirProvider)));
 
 final ttsProvider = Provider<TtsService>((ref) => TtsService());
+
+final soundProvider = Provider<SoundService>((ref) {
+  final service = SoundService();
+  ref.onDispose(service.dispose);
+  return service;
+});
+
+final pdfExportProvider = Provider<PdfExportService>((ref) => PdfExportService(
+      api: ref.watch(arasaacApiProvider),
+      manifest: ref.watch(manifestProvider),
+    ));
 
 // Stato osservabile.
 

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/constants.dart';
 import '../../core/labels.dart';
+import '../../core/print_actions.dart';
 import '../../core/providers.dart';
 import '../../core/theme.dart';
 import '../../core/widgets/pictogram_view.dart';
@@ -165,6 +166,12 @@ class _BreakEditorScreenState extends ConsumerState<BreakEditorScreen> {
                 ? 'Nuova pausa'
                 : 'Modifica pausa'),
         actions: [
+          if (b != null)
+            IconButton(
+              tooltip: 'Stampa scheda',
+              icon: const Icon(Icons.print_outlined),
+              onPressed: () => printBreakCards(context, ref, [b], name: b.name),
+            ),
           if (!_readOnly && b != null)
             IconButton(
               tooltip: 'Elimina',

@@ -29,8 +29,9 @@ compito.
 ## Funzioni
 
 - **Sessione:** timer visivo senza cifre, preavviso uguale ogni volta prima di
-  ogni cambio, gettoni che si riempiono, annuncio vocale facoltativo, schermo
-  sempre acceso.
+  ogni cambio, gettoni che si riempiono, schermo sempre acceso.
+- **Suoni e voce:** due segnali soli, sempre uguali (uno poco prima del cambio,
+  uno a ogni cambio di fase) e annuncio vocale facoltativo di step e pause.
 - **Pause attive:** 12 movimenti in tre gruppi (attivazione, scarico, rientro
   calmo) e 2 mini-circuiti, ognuno animato a pose. Ogni pausa dichiara se si fa
   al banco, in piedi al posto o se serve spazio.
@@ -38,6 +39,8 @@ compito.
   attivano con una pressione prolungata, così non scattano per sbaglio.
 - **Libreria pause:** si sfoglia per tipo e per spazio richiesto. Le pause
   incluse si possono duplicare e modificare; se ne possono creare di nuove.
+- **Stampa:** scheda del compito e schede delle pause con le pose affiancate,
+  da stampare o salvare in PDF e plastificare.
 - **Prima / Dopo:** due pittogrammi a schermo pieno per le transizioni
   improvvise, senza bisogno di preparare un compito.
 - **Profili:** solo un soprannome e un avatar disegnato.
